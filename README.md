@@ -1,4 +1,4 @@
-# Full Stack JS Project - Data Access
+# Full Stack JS Project - Models + Relations
 **`fullstack-js-05-models-relations`**
 
 
@@ -20,7 +20,11 @@ For this assignment, we will focus on configuring the **models** and **relations
 Instead of doing SQL queries, we typically interact with an ORM module that provides us with a 'model' of each table. A model is simply an object-oriented representation of a database table. The ORM module we are using is called  [objection.js](http://vincit.github.io/objection.js/#models), and as you complete this assignment, you will see that it provides utility methods for fetching, inserting, and deleting data as well as providing helper methods for combining queries on our database tables.
 
 ###  Overview
-The goal of this assignment is to query the data in the job and company tables using Models and return data as json when a on the `api/jobs`/`api/companies` routes. The query for the company should return related jobs.
+The goal of this assignment is to query the data in the job and company tables using Models and return data as json when one accesses the `api/jobs`(demos/api-jobs.png) / `api/companies`(demos/api-companies.png) routes.
+  - [Demo 'job' table + jobs api](demos/api-jobs.png)
+  - [Demo 'company' table + companies api](demos/api-jobs.png)
+
+
 
 Summary of primary tasks:
 
@@ -30,6 +34,7 @@ Summary of primary tasks:
 - Return jobs/company records as json in the `api/jobs` and `api/companies` routes
 - Create a database migration to put a foreign key on the job table (for the company id).
 - Declare the relationships between the `Company` and `Job` models
+- Return the job records that have a 'belongTo' relationship to a company record
 
 Here is a link to the sample data that you will use to seed:
   - [jobs data](https://github.com/muktek/assignment--fullstack-js-04-data-access/blob/master/seeddata/jobsData.js)
@@ -85,6 +90,11 @@ In order to complete this assignment, you will need to:
        return {...}
       }`
 
+**NOTE:** You will probably need to rollback the migration, and reseed the data. In terminal:
+
+```
+knex migrate:rollback && knex migrate:latest && knex seed:run
+```
 
 
 ## Setup Instructions
