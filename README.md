@@ -1,5 +1,5 @@
-# Full Stack JS Project - Models + Relations
-**`fullstack-js-05-models-relations`**
+# Full Stack JS Project - Rest API Routes
+**`fullstack-js-06-rest-api`**
 
 
 ## Context
@@ -10,91 +10,85 @@ You are going to build a full stack web application with node.js + React. In ord
 - views
 - api layer
   - data access [this assignment]
-  - **data models + relations (ORM)**
-  - RESTful routes
+  - data models + relations (ORM)
+  - **RESTful routes**
 
 
 ## The Assignment
-For this assignment, we will focus on configuring the **models** and **relations** in our application through an ORM (object relational mapper).
+For this assignment, we will focus on configuring the **REST API Routes**  in our application. A REST API is simply a recommended *api interface* for building routes to access/manipulate *resources*. We have 2 resources in our application right now: jobs and companies.
 
-Instead of doing SQL queries, we typically interact with an ORM module that provides us with a 'model' of each table. A model is simply an object-oriented representation of a database table. The ORM module we are using is called  [objection.js](http://vincit.github.io/objection.js/#models), and as you complete this assignment, you will see that it provides utility methods for fetching, inserting, and deleting data as well as providing helper methods for combining queries on our database tables.
+The beauty of REST architecture is that it simplifies and normalizes the actions for interacting with a resource:
+- Get many records
+- Get one record
+- Create a new record
+- Edit a record
+- Delete a record
+
+The rest architecture for building an API for our jobs resource would be this:
+
+| Action                  | HTTP Verb - Route     |
+| :-------------          | :------------- |
+| Get Many Job Records    | `GET` - `/api/jobs`     |
+| Get Job Record          | `GET` - `/api/jobs/:id`     |
+| Create New Job          | `POST` - `/api/jobs`     |
+| Edit Job Record         | `PUT` - `/api/jobs/:id`     |
+| Delete One Job          | `DELETE` - `/api/jobs/:id`     |
+
+
+
 
 ###  Overview
-The goal of this assignment is to query the data in the job and company tables using Models and return data as json when one accesses the `api/jobs`(demos/api-jobs.png) / `api/companies`(demos/api-companies.png) routes.
-  - [Demo 'job' table + jobs api](demos/api-jobs.png)
-  - [Demo 'company' table + companies api](demos/api-jobs.png)
+The goal of this assignment is to create the following REST routes for the jobs + company resources in your `apiRouter.js`:
 
+```
+GET   -  `/api/jobs`     - Fetches all the jobs
+GET   -  `/api/jobs/:id` - Fetches a single job
+POST  -  `/api/jobs`     - Creates a job
+PUT   -  `/api/jobs/:id` - Edits a job
+DELETE - `/api/jobs/:id` - Deletes a job
 
-
-Summary of primary tasks:
-
-- Configure the data access library (knex) with the ORM (objection).
-- Declare Job and Company models.
-- Query the database using `Job` and `Company` models
-- Return jobs/company records as json in the `api/jobs` and `api/companies` routes
-- Create a database migration to put a foreign key on the job table (for the company id).
-- Declare the relationships between the `Company` and `Job` models
-- Return the job records that have a 'belongTo' relationship to a company record
-
-Here is a link to the sample data that you will use to seed:
-  - [jobs data](https://github.com/muktek/assignment--fullstack-js-04-data-access/blob/master/seeddata/jobsData.js)
-  - [companies data](https://github.com/muktek/assignment--fullstack-js-04-data-access/blob/master/seeddata/companiesData.js)
-
-
+GET   -  `/api/companies`     - Fetches all the companies
+GET   -  `/api/companies/:id` - Fetches a single company
+POST  -  `/api/companies`     - Creates a company
+PUT   -  `/api/companies/:id` - Edits a company
+```
 ### Requirements
 In order to complete this assignment, you will need to:
 
-- [x] **Install dependencies**
-  - objection
-  ```
-  npm install --save objection
+- [x] **Install body parser**
+  - you will be sending json to your server in the *request body* and body parser will allow your express server to read/parse JSON in the request body
+  ```sh
+  npm install --save body-parser
   ```
 
-- [x] **Create relevant files/folders**
-  + add a `models/` directory to `src/`
-  + add a `Job.js` file to `src/models/`
-  + add a `Company.js` file to `src/models/`
-
-- [x] **Configure objection with knex**
+- [x] **Configure body parser as application middleware**
   + in `server.js`
 
   ```js
-  const { Model } = require('objection');
+  const bodyParser = require('body-parser')
 
-  //...connect to knex db... //
+  ...
 
-  Model.knex(«..app-db-instance..»)
+  // ... before your routes
+  app.use(bodyParser.urlencoded({ extended: false }))
+  app.use(bodyParser.json())
+
   ```
 
+- [x] **Declare routes and create Route Handlers on `apiRouter` in `apiRouter.js`**
+  - you will need to use the following
+    - `.get(...)`
+    - `.post(...)`
+    - `.put(...)`
+    - `.delete(...)`
 
-- [x] **Declare Models + export**
-  - Create a Job [model class](http://vincit.github.io/objection.js/#models) in `Job.js`
-  - Create a Company [model class](http://vincit.github.io/objection.js/#models) in `Company.js`
+- Inside route handlers for `.get`, `.post`, `.put`, `.delete` routes, you will need to use [Objection's table queries](http://vincit.github.io/objection.js/#fetch-queries) to update the table in the database
 
+- [x] **Use Postman Request Client to test routes**
+  - https://www.getpostman.com/
+  - Example of POST request
+  - Example of PUT Request
 
-- [x] **Use Model query builder in `apiRouter.js`**
-  - in route-handler functions for `/api/jobs` and `/api/companies`, import models and [query for data](http://vincit.github.io/objection.js/#query-examples).
-
-- [x] **Generate a database migration and put the foreign key on jobs table**
-  + A company has many jobs, and we need to tell our database about that relationship.
-  + [Instructions](https://stackoverflow.com/questions/28350849/knex-migration-creating-foreign-key) for how to put a foreign key on a table in knex
-
-- [x] **Declare the relationships between the `Job` and `Company` models**
-  - [Demo of declaring relations in objection](http://vincit.github.io/objection.js/#relations)
-  - Note: instead of a static property object to configure the relations
-     `static relationMappings = {...}`
-
-     you will need to declare a static method to return the object:
-
-     `static get relationshipMappings(){
-       return {...}
-      }`
-
-**NOTE:** You will probably need to rollback the migration, and reseed the data. In terminal:
-
-```
-knex migrate:rollback && knex migrate:latest && knex seed:run
-```
 
 
 ## Setup Instructions
