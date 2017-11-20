@@ -86,9 +86,8 @@ In order to complete this assignment, you will need to:
 
 - [x] **Use Postman Request Client to test routes**
   - https://www.getpostman.com/
-  - Example of POST request
-  - Example of PUT Request
-
+  - [Example of POST request in Postman](demos/postman-POST-example.png)
+  - [Example of PUT request in Postman](postman-PUT-example.png)
 
 
 ## Setup Instructions
@@ -101,24 +100,9 @@ cd ~/Documents/muktek/assignments/project--devjobs
 
 # (2) Commit your changes from the previous demo
 git add .
-git commit -m 'committing work from part-04'
+git commit -m 'committing work from part-05-models'
 
-# (3) You will work on the part-05-models-and-relations branch for this feature
-git checkout -b part-05-models-and-relations
+# (3) You will work on the part-06-rest-api branch for this feature
+git checkout -b part-06-rest-api
 
 ```
-
-**Installation Checklist**
-
-- [x] **Have mysql-server installed**
-  - (`sudo service myqsl start` will confirm)
-  - [link to mysql-serve install instructions](mysqlserverconfig.md)
-
-- [x] **You have created a MYSQL user**
-  - [link to instructions](_mysqluserconfig.md)
-
-- [x] **Have knex installed globally**
-  - `npm install -g knex`
-
-### Conceptual Understanding
-- Why do we creett
