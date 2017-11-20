@@ -82,12 +82,12 @@ In order to complete this assignment, you will need to:
     - `.put(...)`
     - `.delete(...)`
 
-- Inside route handlers for `.get`, `.post`, `.put`, `.delete` routes, you will need to use [Objection's table queries](http://vincit.github.io/objection.js/#fetch-queries) to update the table in the database
+- Inside route handler functions for `.get(...)`, `.post(...)`, `.put(...)`, `.delete(...)` routes, you will need to use [Objection's table queries](http://vincit.github.io/objection.js/#fetch-queries) to fetch/create/edit/delete the records in the database
 
-- [x] **Use Postman Request Client to test routes**
+- [x] **Use Postman Request Client to test requests/routes**
   - https://www.getpostman.com/
-  - [Example of POST request in Postman](demos/postman-POST-example.png)
-  - [Example of PUT request in Postman](postman-PUT-example.png)
+  - [Example of POST request in Postman](demos/postman-POST-example.png) (for creating a record)
+  - [Example of PUT request in Postman](demos/postman-PUT-example.png) (for updating a record)
 
 
 ## Setup Instructions
@@ -105,4 +105,12 @@ git commit -m 'committing work from part-05-models'
 # (3) You will work on the part-06-rest-api branch for this feature
 git checkout -b part-06-rest-api
 
+```
+
+### Adventure Mode
+
+Create the DELETE route for companies. To make this work, you will need query and delete the related jobs that have the companyId as a foreign key.
+
+```
+DELETE - `/api/companies/:id` - Deletes a company (and it's jobs)
 ```
