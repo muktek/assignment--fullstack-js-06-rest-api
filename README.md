@@ -71,25 +71,22 @@ In order to complete this assignment, you will need to:
 
 ### Expected Results
 
-- When I send a `GET` request to http://localhost:3000/api/jobs,
-  + I should:
-    - receive all the job records in the server response as JSON data
+- When I send a `GET` request to http://localhost:3000/api/jobs, the application should:
+  - query the job records table and send them to the client as JSON data
 
 - When I send a `GET` request to  http://localhost:3000/api/jobs/[:\_id]
-  + I should:
-    - receive all the job records in the server response as JSON data
+  - query the job records table and send the single record with 'id: _id_' to the client as JSON data
 
 - When I send a `POST` request to http://localhost:3000/api/jobs and JSON in the body, the application should:
-    - create a new record in the database
-    - send back the new record as JSON to the client (note: the new record will have an id value)
+  - create a new record in the database
+  - send back the new record as JSON to the client (note: the new record will have an id value)
 
-- When I send a `PUT` request to http://localhost:3000/api/jobs/[:\_id] and JSON in the body, the application should
-    - edit the record in the database
-    - send back the edited record as JSON to the client
+- When I send a `PUT` request to http://localhost:3000/api/jobs/[:\_id] and JSON in the body, the application should:
+  - edit the record in the database
+  - send back the edited record as JSON to the client
 
-- When I send a `DELETE` request to http://localhost:3000/api/jobs/[:\_id] AND
-      - edit the record in the database
-      - send back the following JSON to the client
+- When I send a `DELETE` request to http://localhost:3000/api/jobs/[:\_id], the application should:
+  - i should send back the following JSON to the client
 
 
 
