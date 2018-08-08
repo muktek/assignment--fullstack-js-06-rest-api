@@ -15,29 +15,6 @@ You are going to build a full stack web application with node.js + React. In ord
 
 
 ## The Assignment
-For this assignment, we will focus on configuring the **REST API Routes**  in our application. A REST API is simply a recommended *api interface* for building routes to access/manipulate *resources*. We have 2 resources in our application right now: jobs and companies.
-
-The beauty of REST architecture is that it simplifies and normalizes the actions for interacting with a resource:
-- Get many records
-- Get one record
-- Create a new record
-- Edit a record
-- Delete a record
-
-The rest architecture for building an API for our jobs resource would be this:
-
-| Action                  | HTTP Verb - Route     |
-| :-------------          | :------------- |
-| Get Many Job Records    | `GET` - `/api/jobs`     |
-| Get Job Record          | `GET` - `/api/jobs/:id`     |
-| Create New Job          | `POST` - `/api/jobs`     |
-| Edit Job Record         | `PUT` - `/api/jobs/:id`     |
-| Delete One Job          | `DELETE` - `/api/jobs/:id`     |
-
-
-
-
-###  Overview
 The goal of this assignment is to create the following REST routes for the jobs + company resources in your `apiRouter.js`:
 
 ```
@@ -52,6 +29,7 @@ GET   -  `/api/companies/:id` - Fetches a single company
 POST  -  `/api/companies`     - Creates a company
 PUT   -  `/api/companies/:id` - Edits a company
 ```
+
 ### Requirements
 In order to complete this assignment, you will need to:
 
@@ -67,15 +45,16 @@ In order to complete this assignment, you will need to:
   ```js
   const bodyParser = require('body-parser')
 
-  ...
+  //...
+  app.use( bodyParser.urlencoded({ extended: false }) )
+  app.use( bodyParser.json() )
 
-  // ... before your routes
-  app.use(bodyParser.urlencoded({ extended: false }))
-  app.use(bodyParser.json())
-
+  // ^^ ... before your app routers in express
+  // app.use('/', pageRouter)
+  // app.use('/apiRouter', apiRouter)
   ```
 
-- [x] **Declare routes and create Route Handlers on `apiRouter` in `apiRouter.js`**
+- [x] **Declare routes and create Route Handlers in `apiRouter.js`**
   - you will need to use the following
     - `.get(...)`
     - `.post(...)`
@@ -86,8 +65,33 @@ In order to complete this assignment, you will need to:
 
 - [x] **Use Postman Request Client to test requests/routes**
   - https://www.getpostman.com/
+  - Note: in the request body in Postman, you will need to send the ContentType header _application/json_
   - [Example of POST request in Postman](demos/postman-POST-example.png) (for creating a record)
   - [Example of PUT request in Postman](demos/postman-PUT-example.png) (for updating a record)
+
+### Expected Results
+
+- When I send a `GET` request to http://localhost:3000/api/jobs,
+  + I should:
+    - receive all the job records in the server response as JSON data
+
+- When I send a `GET` request to  http://localhost:3000/api/jobs/[:\_id]
+  + I should:
+    - receive all the job records in the server response as JSON data
+
+- When I send a `POST` request to http://localhost:3000/api/jobs and JSON in the body, the application should:
+    - create a new record in the database
+    - send back the new record as JSON to the client (note: the new record will have an id value)
+
+- When I send a `PUT` request to http://localhost:3000/api/jobs/[:\_id] and JSON in the body, the application should
+    - edit the record in the database
+    - send back the edited record as JSON to the client
+
+- When I send a `DELETE` request to http://localhost:3000/api/jobs/[:\_id] AND
+      - edit the record in the database
+      - send back the following JSON to the client
+
+
 
 
 ## Setup Instructions
