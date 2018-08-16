@@ -15,7 +15,10 @@ You are going to build a full stack web application with node.js + React. In ord
 
 
 ## The Assignment
-The goal of this assignment is to create the following REST routes for the jobs + company resources in your `apiRouter.js`:
+
+A REST API is a recommended architecture for declaring routes that allows us to interact with a resource (Jobs, Companies) in a predictable + consistent manner.
+
+The goal of this assignment is to create the following REST routes + appropriate database interactions for the jobs + company resources in your `apiRouter.js`:
 
 ```
 GET   -  `/api/jobs`     - Fetches all the jobs
@@ -28,6 +31,7 @@ GET   -  `/api/companies`     - Fetches all the companies
 GET   -  `/api/companies/:id` - Fetches a single company
 POST  -  `/api/companies`     - Creates a company
 PUT   -  `/api/companies/:id` - Edits a company
+
 ```
 
 ### Requirements
@@ -75,7 +79,7 @@ In order to complete this assignment, you will need to:
   - query the job records table and send them to the client as JSON data
 
 - When I send a `GET` request to  http://localhost:3000/api/jobs/[:\_id]
-  - query the job records table and send the single record with 'id: _id_' to the client as JSON data
+  - query the job records table for the job with id column value of '_\_id_' from the route.
 
 - When I send a `POST` request to http://localhost:3000/api/jobs and JSON in the body, the application should:
   - create a new record in the database
@@ -97,7 +101,7 @@ In Terminal:
 
 ```sh
 # (1) navigate to your project--devjobs directory
-cd ~/Documents/muktek/assignments/project--devjobs
+cd ~/muktek/assignments/project--devjobs
 
 # (2) Commit your changes from the previous demo
 git add .
